@@ -1,0 +1,8 @@
+__pycache__
+neat-checkpoint-*
+avg_fitness.svg
+best.pickle
+Digraph.gv
+Digraph.gv.svg
+speciation.svg
+test_2048.py
