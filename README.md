@@ -13,7 +13,7 @@ I also want to make a 4x4 graphic grid you will be able to match to a real 2048 
 ---
 
 ## Speed
-I tried to make the code as optimized as possible and it runs at **more than 800 generations of 100 populations per minute**
+I tried to make the code as optimized as possible and it runs at **more than 1000 generations of 100 populations per minute**
 
 ---
 

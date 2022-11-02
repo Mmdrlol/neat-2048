@@ -53,10 +53,8 @@ def game(board, direction, points=0):
     """merge the squares"""
     for i, lines in enumerate(list_lines):
         if not all(square == 0 for square in lines):
-            """delete all the 0 in the lines to put its to the right"""
-            remove = [0 for rm in range(lines.count(0))]  # count the removed 0
-            lines = [n for n in lines if n != 0]  # delete the 0
-            lines.extend(remove)  # replace the removed 0 to the right
+            """delete all the 0 in the lines"""
+            lines = [n for n in lines if n != 0]
 
             """add to numbers next to when its are the same"""
             for n in range(len(lines)-1):
@@ -65,10 +63,8 @@ def game(board, direction, points=0):
                     lines[n:n+2] = [lines[n]*2, 0]  # merge the two numbers
                     points += lines[n]  # add the result to the score
 
-            """delete all the 0 in the lines to put its at the end"""
-            remove = [0 for rm in range(lines.count(0))]
-            lines = [n for n in lines if n != 0]
-            lines.extend(remove)
+            """put the 0 deleted at the end"""
+            lines.extend([0]*(4-len(lines)))
 
             """inverse the lines if its have been inversed"""
             if direction == 1 or direction == 3:
