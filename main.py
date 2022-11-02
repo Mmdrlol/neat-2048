@@ -9,7 +9,6 @@ import re
 
 """
 Created on Sat Oct 29 22:19:09 2022
-
 @author: Mmdrlol.fr
 """
 """
@@ -60,8 +59,11 @@ def game(board, direction, points=0):
             for n in range(len(lines)-1):
                 # check if two same numbers (except 0) are next to each other
                 if lines[n] != 0 and lines[n] == lines[n+1]:
-                    lines[n:n+2] = [lines[n]*2, 0]  # merge the two numbers
-                    points += lines[n]  # add the result to the score
+                    # merge the two numbers
+                    lines[n] = lines[n]*2
+                    del lines[n+1]
+                    lines.append(0)
+                    points = points + lines[n]  # add the result to the score
 
             """put the 0 deleted at the end"""
             lines.extend([0]*(4-len(lines)))
