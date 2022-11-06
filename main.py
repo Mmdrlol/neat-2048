@@ -44,11 +44,6 @@ def game(board, direction, points=0):
         print("an error occurred")
         return False, 0
 
-    """inverse the lines if its are not in the right direction"""
-    # to merge the list from right to left
-    if direction == 1 or direction == 3:
-        list_lines = [lines[::-1] for lines in list_lines]
-
     """merge the squares"""
     for i, lines in enumerate(list_lines):
         if not all(square == 0 for square in lines):
@@ -56,23 +51,34 @@ def game(board, direction, points=0):
             lines = [n for n in lines if n != 0]
 
             """add to numbers next to when its are the same"""
-            for n in range(len(lines)-1):
-                # check if two same numbers (except 0) are next to each other
-                if lines[n] != 0 and lines[n] == lines[n+1]:
-                    # merge the two numbers
-                    lines[n] = lines[n]*2
-                    del lines[n+1]
-                    lines.append(0)
-                    points = points + lines[n]  # add the result to the score
+            if direction == 0 or direction == 2:
+                for n in range(len(lines)-1):
+                    # check if two same numbers are next to each other
+                    if lines[n] != 0 and lines[n] == lines[n+1]: # maybe without 0, to test
+                        # merge the two numbers
+                        lines[n] = lines[n]*2
+                        del lines[n+1]
+                        lines.append(0)
+                        points = points + lines[n]
 
-            """put the 0 deleted at the end"""
-            lines.extend([0]*(4-len(lines)))
+                """put the 0 deleted at the end"""
+                lines.extend([0]*(4-len(lines)))
+                list_lines[i] = lines
 
-            """inverse the lines if its have been inversed"""
-            if direction == 1 or direction == 3:
-                lines = lines[::-1]
+            else:
+                for n in range(len(lines)-1,0,-1):
+                    # check if two same numbers are next to each other
+                    if lines[n] != 0 and lines[n] == lines[n-1]:
+                        # merge the two numbers
+                        lines[n] = lines[n]*2
+                        del lines[n-1]
+                        lines.insert(0,0)
+                        points = points + lines[n]
 
-            list_lines[i] = lines
+                """put the 0 deleted at the beginning"""
+                lines = ([0]*(4-len(lines))) + lines
+                list_lines[i] = lines
+
 
     """conbine the lines to make the board"""
     if direction == 0 or direction == 1:
